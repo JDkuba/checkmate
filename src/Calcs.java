@@ -1,7 +1,7 @@
 public class Calcs implements Runnable {
     private final Board finalBoard;
-    private int row;
     private QueensProblem parent;
+    private int row;
     private int mode;
 
     Calcs(Board board, int rowNumber, QueensProblem parent, int mode) {
@@ -22,34 +22,33 @@ public class Calcs implements Runnable {
                 System.out.println(this.finalBoard);
                 System.out.println();
             }
-            Board return_bs = new Board(this.finalBoard);
             parent.count.incrementAndGet();
-            return return_bs;
+            return new Board(this.finalBoard);
         }
-        Board returnState = null;
-        for (int i = 0; i < this.finalBoard.size(); i++) {
-            if (this.check_single(this.finalBoard, i, this.row)) {
+        Board b = null;
+        for (int i = 0; i < this.finalBoard.size(); ++i) {
+            if (this.checkSingle(this.finalBoard, i, this.row)) {
                 this.finalBoard.insert(this.row, i, true);
                 this.row++;
-                returnState = check();
+                b = check();
                 this.row--;
                 this.finalBoard.insert(this.row, i, false);
-            } else returnState = null;
+            } else b = null;
         }
-        return returnState;
+        return b;
     }
 
-    private boolean check_single(Board bs, int colIndex, int rowIndex) {
-        for (int i = rowIndex, j = colIndex; i > -1; i--, j++) {
-            if (j < this.finalBoard.size()) if (bs.isOccupied(i, j)) return false;
+    private boolean checkSingle(Board b, int col, int row) {
+        for (int i = row, j = col; i > -1; --i, ++j) {
+            if (j < this.finalBoard.size()) if (b.isOccupied(i, j)) return false;
         }
 
-        for (int i = rowIndex, j = colIndex; i > -1; i--, j--) {
-            if (j > -1) if (bs.isOccupied(i, j)) return false;
+        for (int i = row, j = col; i > -1; --i, --j) {
+            if (j > -1) if (b.isOccupied(i, j)) return false;
         }
 
-        for (int i = 0; i < rowIndex; i++) {
-            if (bs.isOccupied(i, colIndex)) return false;
+        for (int i = 0; i < row; ++i) {
+            if (b.isOccupied(i, col)) return false;
         }
 
         return true;

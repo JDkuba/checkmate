@@ -19,8 +19,8 @@ public class Calcs implements Runnable {
     private Board check() {
         if (this.row == this.finalBoard.size()) {
             if (mode == 1) {
-                System.out.println();
                 System.out.println(this.finalBoard);
+                System.out.println();
             }
             Board return_bs = new Board(this.finalBoard);
             parent.count.incrementAndGet();
@@ -29,11 +29,11 @@ public class Calcs implements Runnable {
         Board returnState = null;
         for (int i = 0; i < this.finalBoard.size(); i++) {
             if (this.check_single(this.finalBoard, i, this.row)) {
-                this.finalBoard.insert(this.row, i, 1);
+                this.finalBoard.insert(this.row, i, true);
                 this.row++;
                 returnState = check();
                 this.row--;
-                this.finalBoard.insert(this.row, i, 0);
+                this.finalBoard.insert(this.row, i, false);
             } else returnState = null;
         }
         return returnState;

@@ -22,8 +22,8 @@ class QueensProblem {
 
     int start(int mode) {
         for (int i = 0; i < this.size; i++) {
-            int[] temp = new int[this.size];
-            temp[i] = 1;
+            boolean[] temp = new boolean[this.size];
+            temp[i] = true;
             Board bs = new Board(this.size);
             bs.swapRow(temp);
             Calcs bc = new Calcs(bs, 1, this, mode);

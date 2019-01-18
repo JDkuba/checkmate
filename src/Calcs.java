@@ -1,14 +1,16 @@
+/**
+ * Runnable class for counting number of configurations in given board.
+ **/
+
 public class Calcs implements Runnable {
     private final Board finalBoard;
-    private QueensProblem parent;
+    private QueensProblem queensProblem;
     private int row;
-    private int mode;
 
-    Calcs(Board board, int rowNumber, QueensProblem parent, int mode) {
+    Calcs(Board board, int rowNumber, QueensProblem queensProblem) {
         this.finalBoard = board;
         this.row = rowNumber;
-        this.parent = parent;
-        this.mode = mode;
+        this.queensProblem = queensProblem;
     }
 
     @Override
@@ -18,11 +20,11 @@ public class Calcs implements Runnable {
 
     private Board check() {
         if (this.row == this.finalBoard.size()) {
-            if (mode == 1) {
+            if (queensProblem.mode == 1) {
                 System.out.println(this.finalBoard);
                 System.out.println();
             }
-            parent.count.incrementAndGet();
+            queensProblem.count.incrementAndGet();
             return new Board(this.finalBoard);
         }
         Board b = null;
@@ -38,6 +40,9 @@ public class Calcs implements Runnable {
         return b;
     }
 
+    /**
+     * Checks whether it is possible to place queen in given board in given cell
+     **/
     private boolean checkSingle(Board b, int col, int row) {
         for (int i = row, j = col; i > -1; --i, ++j) {
             if (j < this.finalBoard.size()) if (b.isOccupied(i, j)) return false;

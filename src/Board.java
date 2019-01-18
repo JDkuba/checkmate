@@ -1,3 +1,6 @@
+/**
+ * Class that represents Chessboard
+ **/
 public class Board {
     private boolean[][] board;
 
@@ -18,7 +21,7 @@ public class Board {
         }
     }
 
-    void swapRow(boolean[] row) {
+    void replaceFirstRow(boolean[] row) {
         boolean[] temp = new boolean[row.length];
         System.arraycopy(row, 0, temp, 0, row.length);
         this.board[0] = temp;
@@ -42,6 +45,7 @@ public class Board {
             for (int j = 0; j < this.board[i].length; j++) {
                 if (this.board[i][j]) r.append(1);
                 else r.append(0);
+                r.append(" ");
             }
             if (i != (this.board.length - 1)) r.append("\n");
         }

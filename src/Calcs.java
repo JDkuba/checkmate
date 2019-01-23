@@ -4,7 +4,7 @@
 
 public class Calcs implements Runnable {
     private final Board finalBoard;
-    private QueensProblem queensProblem;
+    final private QueensProblem queensProblem;
     private int row;
 
     Calcs(Board board, int rowNumber, QueensProblem queensProblem) {
@@ -21,8 +21,10 @@ public class Calcs implements Runnable {
     private Board check() {
         if (this.row == this.finalBoard.size()) {
             if (queensProblem.mode == 1) {
-                System.out.println(this.finalBoard);
-                System.out.println();
+                synchronized (queensProblem) {
+                    System.out.println(this.finalBoard);
+                    System.out.println();
+                }
             }
             queensProblem.count.incrementAndGet();
             return new Board(this.finalBoard);
